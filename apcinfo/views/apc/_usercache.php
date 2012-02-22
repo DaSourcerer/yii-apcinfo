@@ -3,6 +3,8 @@
 	'options'=>array(
 		'title'=>'Stored Value',
 		'autoOpen'=>false,
+		'width'=>800,
+		'height'=>600,
 	),
 )); ?>
 <?php $this->widget('zii.widgets.CMenu', array(
