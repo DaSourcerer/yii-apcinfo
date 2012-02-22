@@ -48,7 +48,7 @@
 		array(
 			'class'=>'zii.widgets.grid.CButtonColumn',
 			'template'=>'{view} {delete}',
-			'viewButtonUrl'=>'$this->grid->controller->createUrl("view", array("id"=>$data["info"]))',
+			'viewButtonUrl'=>'$this->grid->controller->createUrl("view", array("key"=>$data["info"]))',
 			'viewButtonOptions'=>array(
 				'onclick'=>'$.ajax({
 					url: $(this).attr("href"),
@@ -60,7 +60,7 @@
 					}
 				}); return false;',
 			),
-			'deleteButtonUrl'=>'$this->grid->controller->createUrl("delete", array("id"=>$data["info"]))',
+			'deleteButtonUrl'=>'$this->grid->controller->createUrl("delete", array("key"=>$data["info"]))',
 		),
 	),
 ));

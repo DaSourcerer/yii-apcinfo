@@ -115,21 +115,24 @@ class ApcController extends Controller
 		$this->redirect(array('index', '#'=>'userCache'));
 	}
 	
-	public function actionDelete($id)
+	public function actionDelete($key)
 	{
-		apc_delete($id);
+		apc_delete($key);
 	}
 	
-	public function actionView($id)
+	public function actionView($key)
 	{
 		if(!Yii::app()->request->isAjaxRequest)
 			throw new CHttpException(400, 'Invalid request. Please do not repeat this.');
 		
 		$success=false;
-		$data=apc_fetch($id, $success);
+		$data=apc_fetch($key, $success);
 		
 		if(!$success)
-			throw new CHttpException(404, "No dataset for key {$id} found!");
+			throw new CHttpException(404, "No dataset for key {$key} found!");
+		
+		if(($_data=@unserialize($data))!==false)
+			$data=$_data;
 		
 		CVarDumper::dump($data, 10, true);
 		Yii::app()->end();
