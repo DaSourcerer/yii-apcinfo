@@ -44,6 +44,11 @@
 		'access_time:datetime:Last accessed',
 		'mtime:datetime:Last modified',
 		'creation_time:datetime:Created at',
-		'deletion_time:datetime:Deleted at',
+		array(
+			'name'=>'deletion_time',
+			'type'=>'datetime',
+			'header'=>'Deleted at',
+			'value'=>'($data["deletion_time"]===0) ? null : $data["deletion_time"]',
+		),
 	),
 ));
