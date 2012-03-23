@@ -1,5 +1,5 @@
 <?php Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/fragmentation.css'); ?>
-<div class="column span-10">
+<div class="column span-12">
 	<?php $this->beginWidget('zii.widgets.CPortlet', array(
 		'title'=>'General Information',
 	)); ?>
