@@ -10,6 +10,7 @@
 				'iniSettings'=>$iniSettings,
 				'info'=>$info,
 				'blocks'=>$blocks,
+				'fragInfo'=>$fragInfo,
 			),
 		),
 		'fileCache'=>array(

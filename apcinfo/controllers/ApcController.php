@@ -69,14 +69,17 @@ class ApcController extends Controller
 				'cache_full_count'=>$userCacheInfo['expunges'],
 		);
 		
-		$blocks=array();
 		$position=0;
+		$freesegs=0;
+		$fragsize=0;
+		$freetotal=0;
+		$blocks=array();
 		foreach($mem['block_lists'] as $i=>$list)
 		{
-			uasort($list, array(&$this, 'block_sort'));
+			uasort($list,array($this, 'blockSort'));
 			foreach($list as $block)
 			{
-				if($position != $block['offset'])
+				if($position != $block['offset']) {
 					$blocks[]=array(
 						'segment'=>$i,
 						'free'=>false,
@@ -84,23 +87,28 @@ class ApcController extends Controller
 						'size'=>($block['offset']-$position),
 						'percent'=>100*($block['offset']-$position)/$mem['seg_size'],
 					);
-				$blocks[]=array(
-					'segment'=>$i,
-					'free'=>true,
-					'offset'=>$block['offset'],
-					'size'=>$block['size'],
-					'percent'=>100*$block['size']/$mem['seg_size'],
-				);
-				$position=$block['size']+$block['offset'];
+				}
+    			$blocks[]=array(
+      				'segment'=>$i,
+      				'free'=>true,
+      				'offset'=>$block['offset'],
+      				'size'=>$block['size'],
+      				'percent'=>(100*$block['size'])/$mem['seg_size'],
+    			);
+				$position=$block['offset']+$block['size'];
+				
+				if($block['size'] < 5*1024*024)
+					$fragsize+=$block['size'];
+				$freetotal+=$block['size'];
 			}
+			$freesegs+=count($list);
 		}
-		
 		if($position < $mem['seg_size'])
 			$blocks[]=array(
-				'segment'=>$mem['num_seg']-1,
+				'segment'=>$i,
 				'free'=>false,
 				'offset'=>$position,
-				'size'=>$mem['seg_size']-$position,
+				'size'=>$smaInfo['seg_size']-$position,
 				'percent'=>100*($mem['seg_size']-$position)/$mem['seg_size'],
 			);
 			
@@ -113,6 +121,11 @@ class ApcController extends Controller
 			'iniSettings'=>$iniSettings,
 			'info'=>$info,
 			'blocks'=>$blocks,
+			'fragInfo'=>array(
+				'freesegs'=>$freesegs,
+				'fragsize'=>$fragsize,
+				'freetotal'=>$freetotal,
+			),
 		));
 	}
 	
@@ -173,4 +186,12 @@ class ApcController extends Controller
 		CVarDumper::dump($data, 10, true);
 		Yii::app()->end();
 	}
+	
+	private function blockSort($a, $b)
+	{
+		if($a['offset'] > $b['offset'])
+			return 1;
+		return -1;
+	}
+	
 }

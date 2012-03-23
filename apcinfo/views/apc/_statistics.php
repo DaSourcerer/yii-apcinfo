@@ -82,6 +82,14 @@
 			), '', true);
 	?>
 	</div>
+	Fragmentation:
+	<div class="right">
+	<?php if($fragInfo['freesegs'] > 1): ?>
+		<span title="<?php echo $formatter->formatDatasize($fragInfo['fragsize']); ?> out of <?php echo $formatter->formatDatasize($fragInfo['freetotal']);?> in <?php echo $fragInfo['freesegs']; ?> segments"><?php echo round($fragInfo['fragsize']/$fragInfo['freetotal']*100, 3); ?>%</span>
+	<?php else: ?>
+		0.00%
+	<?php endif; ?>
+	</div>
 	<?php $this->endWidget(); ?>
 </div>
 <div class="column span-24 last">
