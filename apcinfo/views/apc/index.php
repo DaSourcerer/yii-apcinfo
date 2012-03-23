@@ -9,6 +9,7 @@
 				'userCache'=>$userCache,
 				'iniSettings'=>$iniSettings,
 				'info'=>$info,
+				'blocks'=>$blocks,
 			),
 		),
 		'fileCache'=>array(
