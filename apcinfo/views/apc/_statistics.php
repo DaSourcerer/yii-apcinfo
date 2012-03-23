@@ -1,3 +1,4 @@
+<?php Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/fragmentation.css'); ?>
 <div class="column span-10">
 	<?php $this->beginWidget('zii.widgets.CPortlet', array(
 		'title'=>'General Information',
@@ -66,6 +67,23 @@
 
 <div class="clear"></div>
 
+<div class="column span-24">
+	<?php $this->beginWidget('zii.widgets.CPortlet', array(
+		'title'=>'Cache Fragmentation',
+	)); ?>
+	<div class="fragmentation-container">
+	<?php
+		foreach($blocks as $block)
+			echo CHtml::tag('div', array(
+				'class'=>$block['free'] ? 'free' : 'used',
+				//'style'=>"width: round({$block['percent']})%",
+				'style'=>'width: '.(int)$block['percent'].'%',
+				'title'=>"Block with {$formatter->formatDatasize($block['size'])} (Segment {$block['segment']} | Offset {$formatter->formatNumber($block['offset'])})",
+			), '', true);
+	?>
+	</div>
+	<?php $this->endWidget(); ?>
+</div>
 <div class="column span-24 last">
 	<?php $this->beginWidget('zii.widgets.CPortlet', array(
 		'title'=>'Runtime Settings'

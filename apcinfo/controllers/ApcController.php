@@ -69,6 +69,41 @@ class ApcController extends Controller
 				'cache_full_count'=>$userCacheInfo['expunges'],
 		);
 		
+		$blocks=array();
+		$position=0;
+		foreach($mem['block_lists'] as $i=>$list)
+		{
+			uasort($list, array(&$this, 'block_sort'));
+			foreach($list as $block)
+			{
+				if($position != $block['offset'])
+					$blocks[]=array(
+						'segment'=>$i,
+						'free'=>false,
+						'offset'=>$position,
+						'size'=>($block['offset']-$position),
+						'percent'=>100*($block['offset']-$position)/$mem['seg_size'],
+					);
+				$blocks[]=array(
+					'segment'=>$i,
+					'free'=>true,
+					'offset'=>$block['offset'],
+					'size'=>$block['size'],
+					'percent'=>100*$block['size']/$mem['seg_size'],
+				);
+				$position=$block['size']+$block['offset'];
+			}
+		}
+		
+		if($position < $mem['seg_size'])
+			$blocks[]=array(
+				'segment'=>$mem['num_seg']-1,
+				'free'=>false,
+				'offset'=>$position,
+				'size'=>$mem['seg_size']-$position,
+				'percent'=>100*($mem['seg_size']-$position)/$mem['seg_size'],
+			);
+			
 		$this->render('index', array(
 			'formatter'=>$formatter,
 			'fileCache'=>$fileCache,
@@ -77,6 +112,7 @@ class ApcController extends Controller
 			'userCacheList'=>$userCacheInfo['cache_list'],
 			'iniSettings'=>$iniSettings,
 			'info'=>$info,
+			'blocks'=>$blocks,
 		));
 	}
 	
