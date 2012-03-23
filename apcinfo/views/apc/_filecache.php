@@ -1,4 +1,4 @@
-<?php Yii::app()->getClientScript()->registerCss('Apcinfo.Apccontroller#index._filecache', 'div#fileCache.view tr.outdated { background-color: #fda7a7 }'); ?>
+<?php Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/filecache.css'); ?>
 <?php $this->widget('zii.widgets.CMenu', array(
 	'items'=>array(
 		array(

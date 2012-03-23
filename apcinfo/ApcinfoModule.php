@@ -2,6 +2,8 @@
 
 class ApcinfoModule extends CWebModule
 {
+	private $_assets;
+	
 	public function init()
 	{
 		// this method is called when the module is being created
@@ -25,4 +27,12 @@ class ApcinfoModule extends CWebModule
 		else
 			return false;
 	}
+
+	public function getAssetsUrl()
+	{
+		if($this->_assets === null)
+		$this->_assets = Yii::app()->getAssetManager()->publish(dirname(__FILE__) . '/assets/css/');
+		return $this->_assets;
+	}
+	
 }
