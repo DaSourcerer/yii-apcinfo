@@ -1,4 +1,5 @@
 <?php Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/fragmentation.css'); ?>
+<?php Yii::app()->getClientScript()->registerCssFile($this->module->getAssetsUrl() . '/stats.css'); ?>
 <div class="column span-12">
 	<?php $this->beginWidget('zii.widgets.CPortlet', array(
 		'title'=>'General Information',
@@ -37,7 +38,19 @@
 			'hit_rate:rate',
 			'miss_rate:rate',
 			'insert_rate:rate',
-			'cache_full_count:number:Cache full count',
+			array(
+				'name'=>'cache_full_count',
+				'type'=>'number',
+				'label'=>'Cache full count',
+				'cssClass'=>'full',
+				'visible'=>($fileCache['cache_full_count']>0),
+			),
+			array(
+				'name'=>'cache_full_count',
+				'type'=>'number',
+				'label'=>'Cache full count',
+				'visible'=>($fileCache['cache_full_count']==0),
+			),
 		),
 	)); ?>
 	<?php $this->endWidget(); ?>
@@ -59,7 +72,19 @@
 			'hit_rate:rate',
 			'miss_rate:rate',
 			'insert_rate:rate',
-			'cache_full_count:number:Cache full count',
+			array(
+				'name'=>'cache_full_count',
+				'type'=>'number',
+				'label'=>'Cache full count',
+				'cssClass'=>'full',
+				'visible'=>($userCache['cache_full_count']>0),
+			),
+			array(
+				'name'=>'cache_full_count',
+				'type'=>'number',
+				'label'=>'Cache full count',
+				'visible'=>($userCache['cache_full_count']==0),
+			),
 		),
 	)); ?>
 	<?php $this->endWidget(); ?>
@@ -76,9 +101,8 @@
 		foreach($blocks as $block)
 			echo CHtml::tag('div', array(
 				'class'=>$block['free'] ? 'free' : 'used',
-				//'style'=>"width: round({$block['percent']})%",
 				'style'=>'width: '.(int)$block['percent'].'%',
-				'title'=>"Block with {$formatter->formatDatasize($block['size'])} (Segment {$block['segment']} | Offset {$formatter->formatNumber($block['offset'])})",
+				'title'=>($block['free'] ? 'Free' : 'Used') . " block with {$formatter->formatDatasize($block['size'])} (Segment {$block['segment']} | Offset {$formatter->formatNumber($block['offset'])})",
 			), '', true);
 	?>
 	</div>
