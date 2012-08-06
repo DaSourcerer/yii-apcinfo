@@ -34,7 +34,7 @@ class ApcinfoModule extends CWebModule
 	public function getAssetsUrl()
 	{
 		if($this->_assets === null)
-		$this->_assets = Yii::app()->getAssetManager()->publish(dirname(__FILE__) . '/assets/css/');
+			$this->_assets = Yii::app()->getAssetManager()->publish(dirname(__FILE__) . '/assets/css/');
 		return $this->_assets;
 	}
 	
