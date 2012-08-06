@@ -1,13 +1,7 @@
 <?php
 class ApcController extends Controller
 {
-	public function init()
-	{
-		if(!extension_loaded('apc'))
-			throw new CException('PHP\'s APC extension must be loaded!');
-		parent::init();
-	}
-	
+		
 	public function actionIndex()
 	{
 		$formatter = new CustomFormatter;

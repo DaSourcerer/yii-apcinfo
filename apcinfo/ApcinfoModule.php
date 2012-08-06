@@ -9,6 +9,9 @@ class ApcinfoModule extends CWebModule
 		// this method is called when the module is being created
 		// you may place code here to customize the module or the application
 
+		if(!extension_loaded('apc'))
+			throw new CException('PHP\'s APC extension must be loaded!');
+				
 		// import the module-level models and components
 		$this->setImport(array(
 			'apcinfo.models.*',
