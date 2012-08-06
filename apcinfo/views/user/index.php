@@ -11,7 +11,7 @@
 	'items'=>array(
 		array(
 			'label'=>'Clear cache',
-			'url'=>$this->createUrl('clearUserCache'),
+			'url'=>$this->createUrl('clear'),
 			'linkOptions'=>array(
 				'confirm'=>'This will purge the entire user cache. Are you sure?',
 			),
@@ -19,7 +19,7 @@
 	),
 )); ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'dataProvider'=>new CArrayDataProvider($userCacheList, array(
+	'dataProvider'=>new CArrayDataProvider($userList, array(
 		'keyField'=>'info',
 		'sort'=>array(
 			'attributes'=>array(

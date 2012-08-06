@@ -3,14 +3,14 @@
 	'items'=>array(
 		array(
 			'label'=>'Clear cache',
-			'url'=>$this->createUrl('clearFileCache'),
+			'url'=>$this->createUrl('clear'),
 			'linkOptions'=>array(
 				'confirm'=>'This will purge the entire opcode cache. Are you sure?',
 			),
 		),
 		array(
 			'label'=>'Clear outdated',
-			'url'=>$this->createUrl('clearOutdated'),
+			'url'=>$this->createUrl('clear', array('outdated'=>true)),
 			'linkOptions'=>array(
 				'confirm'=>'This will purge all opcode cache entries that are no longer in sync with the filesystem. Are you sure?',
 			),
@@ -18,7 +18,7 @@
 	),
 )); ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'dataProvider'=>new CArrayDataProvider($fileCacheList, array(
+	'dataProvider'=>new CArrayDataProvider($opcodeList, array(
 		'keyField'=>'filename',
 		'sort'=>array(
 			'attributes'=>array(

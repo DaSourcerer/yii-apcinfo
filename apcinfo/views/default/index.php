@@ -13,21 +13,13 @@
 				'fragInfo'=>$fragInfo,
 			),
 		),
-		'fileCache'=>array(
-			'title'=>'File Cache Content',
-			'view'=>'_filecache',
-			'data'=>array(
-				'formatter'=>$formatter,
-				'fileCacheList'=>$fileCacheList,
-			),
+		'opcode'=>array(
+			'title'=>'Opcode Cache',
+			'url'=>$this->createUrl('opcode/index'),
 		),
-		'userCache'=>array(
-			'title'=>'User Cache Content',
-			'view'=>'_usercache',
-			'data'=>array(
-				'formatter'=>$formatter,
-				'userCacheList'=>$userCacheList,
-			),
+		'user'=>array(
+			'title'=>'User Cache',
+			'url'=>$this->createUrl('user/index'),
 		),
 	),
 )); ?>
