@@ -182,6 +182,8 @@ class ApcController extends Controller
 		
 		if(($_data=@unserialize($data))!==false)
 			$data=$_data;
+		elseif(function_exists('igbinary_unserialize') && ($_data=@igbinary_unserialize($data))!==false)
+			$data=$_data;
 		
 		CVarDumper::dump($data, 10, true);
 		Yii::app()->end();
