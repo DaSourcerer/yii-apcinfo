@@ -101,7 +101,7 @@ class DefaultController extends Controller
 				'segment'=>$i,
 				'free'=>false,
 				'offset'=>$position,
-				'size'=>$smaInfo['seg_size']-$position,
+				'size'=>$mem['seg_size']-$position,
 				'percent'=>100*($mem['seg_size']-$position)/$mem['seg_size'],
 			);
 			
