@@ -27,7 +27,7 @@ class OpcodeController extends CController
 			if(empty($result))
 				Yii::app()->user->setFlash('success', count($files) . ' outdated cache files cleared.');
 			else
-				Yii::app()->user->setFlash('error', 'Puriging the following files from the cache has failed: ' . implode(', ', $result));
+				Yii::app()->user->setFlash('error', 'Purging the following files from the cache has failed: ' . implode(', ', $result));
 		}
 		else
 		{
